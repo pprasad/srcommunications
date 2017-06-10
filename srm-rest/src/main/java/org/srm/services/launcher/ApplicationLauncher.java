@@ -17,7 +17,11 @@ import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/*
+ * @Auth:prasad
+ * @date:11/06/2017
+ * @Description:ApplicationLauncher is main loaded by the heroku server
+ */
 public class ApplicationLauncher {
 	
 	private final static Logger LOGGER=LoggerFactory.getLogger(ApplicationLauncher.class);
@@ -35,9 +39,7 @@ public class ApplicationLauncher {
         if(webPort == null || webPort.isEmpty()) {
             webPort = "8080";
         }
-
         tomcat.setPort(Integer.valueOf(webPort));
-
         StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
         System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
         ctx.getServletContext().setAttribute(Globals.ALT_DD_ATTR,webappDirLocation.concat("WEB-INF/web.xml"));
