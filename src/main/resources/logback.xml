@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- <property name="logPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS Z}] TID=%X{TID}: %level: %logger{15}.%method %line: %m%n" />-->
+	<property name="logPattern" value="%-25(%d{MM-dd HH:mm:ss.SSS} [%thread]) [%-2level] - %logger{15}.%method %line: %m%n"/>
+	<property name="splunklogPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS Z}] TID=%X{TID}%m%n" />
+	<property name="MaxFileSize" value="10MB" />
+	<property name="logPath" value="srmservices" />
+	<!-- Appender for local environment In local system logging should happen only in console. So only console appender has been defined -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>${logPattern}</Pattern>
+		</encoder>
+	</appender>
+   <!-- Appender "ROOTLOGS" has been defined to handle logging event of entire sbpprv Application. -->
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<append>true</append>
+		<File>${logPath}.log</File>
+		<encoder>
+			<Pattern>${logPattern}</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logPath}.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>${MaxFileSize}</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	<!--START:Q1FY17:PRASAD-->
+	<!-- AsyncAppender -->
+	<appender name="asyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+	      <queueSize>10000</queueSize>
+	      <appender-ref ref="fileAppender" />
+	</appender>
+    <!--END:Q1FY17:PRASAD-->
+	<!-- Various loggers and their logging level -->
+	<logger name="com.cisco" level="DEBUG" />
+	<logger name="httpclient.wire.header" level="ERROR" />
+	<logger name="httpclient.wire.content" level="ERROR" />
+
+	<logger name="org.apache.http" level="ERROR" />
+	<logger name="org.apache.http.client" level="ERROR" />
+	<logger name="org.apache.http.impl.client" level="ERROR" />
+	<logger name="org.apache.http.impl.conn" level="ERROR" />
+
+	<!--logger name="org.hibernate.SQL" additivity="false" level="ERROR"/>
+	<logger name="org.hibernate.SQL" additivity="false" level="DEBUG"/>
+	<logger name="com.cisco.services.licensing.web.mapper" additivity="true" level="ERROR"/>
+	<logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor" level="TRACE" additivity="false"/>
+	<logger name="splunkLogger" level="INFO"/>-->
+
+	<root level="ALL">
+		<appender-ref ref="console" />
+		<appender-ref ref="fileAppender" />
+	</root>
+</configuration>

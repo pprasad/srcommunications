@@ -15,28 +15,15 @@ import org.apache.catalina.webresources.EmptyResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.Constants;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ApplicationLauncher {
+	
+	private final static Logger LOGGER=LoggerFactory.getLogger(ApplicationLauncher.class);
 
-    private static File getRootFolder() {
-        try {
-            File root;
-            String runningJarPath = ApplicationLauncher.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replaceAll("\\\\", "/");
-            int lastIndexOf = runningJarPath.lastIndexOf("/target/");
-            if (lastIndexOf < 0) {
-                root = new File("");
-            } else {
-                root = new File(runningJarPath.substring(0, lastIndexOf));
-            }
-            System.out.println("application resolved root folder: " + root.getAbsolutePath());
-            return root;
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-
+	public static void main(String[] args) throws Exception {
+        LOGGER.info("********************Starting Tomcat Container*************");
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
         String webappDirLocation = "src/main/webapp/";
         Tomcat tomcat = new Tomcat();
