@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	   <display-name>SRCommunications</display-name>
-	   <!-- <context-param>
+	   <context-param>
                 <param-name>contextConfigLocation</param-name>
                 <param-value>classpath:WEB-INF/SrmServices-servlet.xml</param-value>
         </context-param>
@@ -17,5 +17,5 @@
         <servlet-mapping>
 	        <servlet-name>SrmServices</servlet-name>
 	        <url-pattern>/services/*</url-pattern>
-        </servlet-mapping> -->
+        </servlet-mapping>
 </web-app>
