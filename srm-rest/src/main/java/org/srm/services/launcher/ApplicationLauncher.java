@@ -29,7 +29,7 @@ public class ApplicationLauncher {
 	public static void main(String[] args) throws Exception {
         LOGGER.info("********************Starting Tomcat Container*************");
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
-        String webappDirLocation = "src/main/webapp/";
+        String webappDirLocation = "srm-rest/src/main/webapp/";
         Tomcat tomcat = new Tomcat();
         Path tempPath = Files.createTempDirectory("tomcat-base-dir");
         tomcat.setBaseDir(tempPath.toString());
