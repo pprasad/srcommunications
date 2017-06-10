@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.srm.services</groupId>
-  <artifactId>srm-rest-services</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>srcommunications</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.srm.services</groupId>
+	<artifactId>srm-rest-services</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>srcommunications</name>
    <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tomcat.version>8.0.28</tomcat.version>
@@ -39,6 +40,11 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
+    <dependency>
+	    <groupId>org.apache.tomcat</groupId>
+	    <artifactId>tomcat-catalina</artifactId>
+	    <version>${tomcat.version}</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>embeddedTomcatSample</finalName>
@@ -67,4 +73,5 @@
         </plugin>
     </plugins>
   </build>
+  <packaging>war</packaging>
 </project>
