@@ -16,6 +16,7 @@
 		<project.dir>${basedir}</project.dir>
 		<project.libdir>${project.dir}/lib</project.libdir>
 		<common.dbc.version>1.4</common.dbc.version>
+		<cglib.version>2.2</cglib.version>
 	</properties>
 	<modules>
 		<module>srm-rest</module>
