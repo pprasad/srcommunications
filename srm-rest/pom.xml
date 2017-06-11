@@ -9,11 +9,6 @@
 	<artifactId>srm-rest</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>javolution</groupId>
-			<artifactId>javolution</artifactId>
-			<version>5.5.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
@@ -47,7 +42,6 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>${tomcat.version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<!-- Slf4j & logback -->
 		<dependency>
@@ -139,20 +133,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<uriEncoding>UTF-8</uriEncoding>
-					<path>/</path>
-					<port>80</port>
-					<contextFile>context.xml</contextFile> <systemProperties> <OPENSHIFT_DB_URL>jdbc:oracle:thin:@(DESCRIPTION= 
-						(ADDRESS=(PROTOCOL=TCP)(HOST=dbc-stg-vm-2066)(PORT=1529))(CONNECT_DATA=(SERVICE_NAME=SVSTST.CISCO.COM)))</OPENSHIFT_DB_URL> 
-						<OPENSHIFT_DB_USERNAME>COMUSER</OPENSHIFT_DB_USERNAME> <OPENSHIFT_DB_PASSWORD>resu_6passmoc</OPENSHIFT_DB_PASSWORD> 
-						<cisco.life>local</cisco.life> <env.type></env.type> </systemProperties>
-				</configuration>
-			</plugin> -->
 		</plugins>
 	</build>
 	<packaging>war</packaging>
