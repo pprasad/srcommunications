@@ -103,8 +103,8 @@
             <version>${common.dbc.version}</version>
         </dependency>
 		 <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
             <version>${postgresp.version}</version>
         </dependency>
 		<!-- hibernate configuration -->
