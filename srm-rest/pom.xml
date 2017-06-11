@@ -87,9 +87,11 @@
 		</dependency>
 		<!-- postgressql configuration -->
 		<dependency>
-			<groupId>org.postgresql</groupId>
+			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>${postgresp.version}</version>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.libdir}/postgresql-42.1.1.jar</systemPath>
 		</dependency>
 		<!-- hibernate configuration -->
 		<dependency>
