@@ -12,7 +12,7 @@
 		<logback.version>1.1.1</logback.version>
 		<spring.version>4.3.2.RELEASE</spring.version>
 		<hibernate.version>4.2.15.Final</hibernate.version>
-		<postgresp.version>9.4.1208-jdbc42-atlassian-hosted</postgresp.version>
+		<postgresp.version>42.0.0</postgresp.version>
 		<project.dir>${basedir}</project.dir>
 		<project.libdir>${project.dir}/lib</project.libdir>
 	</properties>
