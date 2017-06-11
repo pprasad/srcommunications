@@ -18,7 +18,7 @@
 	<context:component-scan base-package="com.srm.services.**"></context:component-scan>
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<value>application.properties</value>
+			<value>classpath:application.properties</value>
 		</property>
 	</bean>
 	<bean name="dataSource"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
