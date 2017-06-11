@@ -22,10 +22,10 @@
 		</property>
 	</bean>
 	<bean name="dataSource"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName">${jdbc.driverClassname}</property>
-		<property name="url">${jdbc.url}</property>
-		<property name="username">${jdbc.username}</property>
-		<property name="password">${jdbc.password}</property>
+		<property name="driverClassName" value="${jdbc.driverClassname}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
 	</bean>
 	<bean name="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
