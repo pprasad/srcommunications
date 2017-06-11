@@ -15,31 +15,21 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<context:annotation-config />
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<context:component-scan base-package="com.srm.services.**"></context:component-scan>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>application.properties</value>
 		</property>
 	</bean>
-	<context:component-scan base-package="com.srm.services.**"></context:component-scan>
-	<bean name="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName">
-			${jdbc.driverClassname}
-		</property>
-		<property name="url">
-			${jdbc.url}
-		</property>
-		<property name="username">
-			${jdbc.username}
-		</property>
-		<property name="password">
-			${jdbc.password}
-		</property>
+	<bean name="dataSource"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">${jdbc.driverClassname}</property>
+		<property name="url">${jdbc.url}</property>
+		<property name="username">${jdbc.username}</property>
+		<property name="password">${jdbc.password}</property>
 	</bean>
 	<bean name="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSource"/>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
