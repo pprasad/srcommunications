@@ -44,11 +44,11 @@
 	<logger name="org.apache.http.impl.client" level="ERROR" />
 	<logger name="org.apache.http.impl.conn" level="ERROR" />
 
-	<!--logger name="org.hibernate.SQL" additivity="false" level="ERROR"/>
+	<logger name="org.hibernate.SQL" additivity="false" level="ERROR"/>
 	<logger name="org.hibernate.SQL" additivity="false" level="DEBUG"/>
 	<logger name="com.cisco.services.licensing.web.mapper" additivity="true" level="ERROR"/>
 	<logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor" level="TRACE" additivity="false"/>
-	<logger name="splunkLogger" level="INFO"/>-->
+	<logger name="splunkLogger" level="INFO"/>
 
 	<root level="ALL">
 		<appender-ref ref="console" />

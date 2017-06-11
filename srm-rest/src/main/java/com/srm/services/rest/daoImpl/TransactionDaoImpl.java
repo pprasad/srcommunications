@@ -25,6 +25,7 @@ public class TransactionDaoImpl implements TransactionDao{
 		Session session=null;
 		List<Users> users=null;
 		try{
+			LOGGER.info("sessionFactory{}"+sessionFactory);
 			session=sessionFactory.openSession();
 			Query query=session.createQuery("SELECT O FROM Users O");
 		    users=query.list();
