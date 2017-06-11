@@ -35,6 +35,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.default_schema">public</prop>
 			</props>
 		</property>
 		<property name="packagesToScan">
