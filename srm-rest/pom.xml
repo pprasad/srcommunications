@@ -91,11 +91,11 @@
             <version>${spring.version}</version>
         </dependency>
         <!--cglib-->
-        <dependency>
+        <!-- <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>${cglib.version}</version>
-        </dependency>
+        </dependency> -->
 		<!-- postgressql configuration -->
 		<dependency>
             <groupId>commons-dbcp</groupId>

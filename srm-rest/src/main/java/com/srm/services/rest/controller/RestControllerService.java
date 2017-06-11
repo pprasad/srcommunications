@@ -31,11 +31,6 @@ public class RestControllerService {
 	
 	@RequestMapping(value="/login/auth",method=RequestMethod.GET)
 	public ResponseEntity<String> loginAuth() throws URISyntaxException{
-		URI dbUri = new URI(System.getenv("DATABASE_URL"));
-		LOGGER.info("Username{}"+dbUri.getUserInfo().split(":")[0]);
-		LOGGER.info("Password{}"+dbUri.getUserInfo().split(":")[1]);
-		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
-		LOGGER.info("DBURL{}"+dbUrl);
 		List<Users> users=transactionService.findAllUsers();
 		LOGGER.info("userInfo{}"+users);
 		return new ResponseEntity<String>("Welcome to Srcommunications",HttpStatus.OK);
