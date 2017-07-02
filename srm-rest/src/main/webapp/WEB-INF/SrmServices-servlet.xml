@@ -21,27 +21,23 @@
 			<value>classpath:application.properties</value>
 		</property>
 	</bean>
-	<bean class="java.net.URI" id="dbUrl">
-        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
-    </bean>
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="url" value="#{ 'jdbc:postgresql://'+ @dbUrl.getHost() + ':'+@dbUrl.getPort()+@dbUrl.getPath() }"/>
         <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
         <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
     </bean> -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassname}"></property>
-        <property name="url" value="#{ 'jdbc:postgresql://'+ @dbUrl.getHost() + ':'+@dbUrl.getPort()+@dbUrl.getPath() }"/>
-        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
-        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
 	<bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.default_schema">public</prop>
 			</props>
 		</property>
 		<property name="packagesToScan">

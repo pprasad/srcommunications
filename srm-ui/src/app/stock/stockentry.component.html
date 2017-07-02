@@ -1,0 +1,51 @@
+<div class="container content-top">
+  <div class="panel"> 
+      <div class="panel-heading clearfix"><h3 class="panel-title">Stock Entry</h3></div>
+      <div class="panel-body">  
+        <form>
+            <div class="form-group row">
+            <label for="stockid" class="col-sm-2 col-form-label">{{'form.stockentry.stockid'|translate}}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control input-md" id="stockid" placeholder="Stock Id">
+            </div>
+            </div>
+            <div class="form-group row">
+            <label for="stockname" class="col-sm-2 col-form-label">{{'form.stockentry.stockname'|translate}}</label>
+            <div class="col-sm-10">
+                <select class="form-control select-lg" id="stockname" aria-placeholder="Stock Name"></select>
+            </div>
+            </div>
+            <div class="form-group row">
+            <label for="stockname" class="col-sm-2 col-form-label">{{'form.stockentry.quantity'|translate}}</label>
+            <div class="col-sm-10 input-group-md">
+                <input type="text" class="form-control" id="stockqty" placeholder="Quantity">
+                <select class="form-control" id="stockqtytype" aria-placeholder="Stock Name"></select>
+            </div>
+            </div>
+            <div class="form-group row">
+            <label for="qtyprice" class="col-sm-2 col-form-label">{{'form.stockentry.qtyprice'|translate}}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control input-md-lg" id="qtyprice" placeholder="Quatity Price">
+            </div>
+            </div>
+            <div class="form-group row">
+            <label for="salprice" class="col-sm-2 col-form-label">{{'form.stockentry.salprice'|translate}}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control input-md-lg" id="salprice" placeholder="Saling Price">
+            </div>
+            </div>
+            <div class="form-group row">
+            <label for="totalamt" class="col-sm-2 col-form-label">{{'form.stockentry.totalamt'|translate}}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control input-md-lg" id="totalamt" placeholder="Total Amount">
+            </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>  
+  </div>
+</div>

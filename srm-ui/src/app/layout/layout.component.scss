@@ -1,0 +1,14 @@
+.main-container{
+    -ms-overflow-x: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    overflow: hidden;
+    padding: 66px 0 0 34px;
+    min-height: 500px;
+}
+@media screen and (max-width: 992px) {
+    .main-container {
+        margin-left:30px !important;
+    }
+}

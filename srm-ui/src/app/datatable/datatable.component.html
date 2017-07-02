@@ -1,0 +1,31 @@
+<div class="row">
+   <div class="col-sm-2">
+       <button class="glyphicon glyphicon-plus" (click)="addRow()"></button>
+   </div>     
+</div>
+<div class="row">
+   <div class="col-lg-12">
+       <!-- outer scrollbar-->
+       <div class="ngOuterScrollbar">
+          <!-- inner scrollbar-->
+	      <div class="ngInnerScrollbar">
+	        	<div class="ng-header">
+		            <table class="ngtable">
+		                 <thead>
+								<tr>
+				                    <th *ngFor="let col of column">
+                                        {{col.title}}
+                                    </th>
+				            	</tr>
+						</thead>
+		            </table>
+	            </div>
+		        <div class="ng-content">
+			       <ngCell [rows]="rows" (updateFn)="update($event)"></ngCell>
+		        </div>
+	      </div>
+	       <!--End inner scrollbar-->
+	    </div>   
+	     <!--End outer scrollbar--> 
+     </div>
+</div>

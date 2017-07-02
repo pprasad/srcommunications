@@ -1,0 +1,82 @@
+$topnav-background-color:#222;
+.page-top{
+    background-color: #1C2B36;
+    position: fixed;
+    z-index: 1000;
+    box-shadow: 2px 0 3px rgba(0,0,0,.5);
+    height: 66px;
+    width: 100%;
+    min-width: 320px;
+    padding: 0 32px 0 40px;
+    .caret{
+       display:none !important;
+    }
+    .nav-link{
+        text-shadow:0em !important;
+    } 
+}
+a.collapse-menu-link{
+    font-size: 20px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    line-height: 42px;
+    color: #fff;
+    padding: 0;
+    float: left;
+    margin: 4px 0 0 10px;
+    &:hover{
+      color:#f0ad4e
+    }
+}
+.profile-nav-bar{
+   float: right;
+    margin-right: 0px;
+    margin-top: 12px;
+    -webkit-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+    padding: 0;
+    height: 36px;
+    border: 0;
+    opacity: 1;
+    position: relative;
+    &:hover{
+        background-color:transparent !important;
+    }
+}
+ul .profile-dropdown{
+     width: 145px;
+     left: -30px
+}
+.dropdown-arrow{
+    position: absolute;
+    top: -22px;
+    right: 42px;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 11px solid transparent;
+    border-bottom-color:white ;
+}
+.nav > li > a:hover, .nav > li > a:focus{
+    background-color: transparent !important;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+    background-color: transparent !important;
+}
+.icon-navbar-brand{
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    color:white;
+}
+.icon-navbar-brand a{
+    text-decoration:none;
+}
+@media screen and (max-width: 500px){
+   .page-top {
+       padding: 0 20px;
+   }
+}

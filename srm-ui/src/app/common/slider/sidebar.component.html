@@ -1,0 +1,20 @@
+<nav class="sidebar" [ngStyle]="{width:menuWidth+'px'}">
+    <ul class="list-group">
+        <li>
+            <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa glyphicon glyphicon-home"></i>{{iconShow?'':'slider.dashboard' | translate }}
+            </a>
+        </li>
+        <li class="dropdown" ngbDropdown>    
+            <a class="list-group-item"ngbDropdownToggle>
+                <i class="fa glyphicon glyphicon-edit"></i>{{iconShow?'':'slider.masterdata'|translate}} 
+            </a>
+            <ul class="toggle-menu dropdown-menu">
+              <li><i class="left-arrow"></i>
+              <li><a  [routerLink]="['./itementry']"><i class="fa fa-fw fa-envelope"></i>Item Master</a></li>
+              <li><a  [routerLink]="['./stockentry']"><i class="fa fa-fw fa-user"></i>Stock Entry</a></li>
+              <li><a  [routerLink]="['/login']" (click)="onLoggedout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+             </ul>   
+        </li>    
+    </ul>
+</nav>

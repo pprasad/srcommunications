@@ -35,7 +35,7 @@
 	</appender>
     <!--END:Q1FY17:PRASAD-->
 	<!-- Various loggers and their logging level -->
-	<logger name="com.cisco" level="DEBUG" />
+	<logger name="com.srm.services" level="INFO" />
 	<logger name="httpclient.wire.header" level="ERROR" />
 	<logger name="httpclient.wire.content" level="ERROR" />
 
@@ -44,14 +44,14 @@
 	<logger name="org.apache.http.impl.client" level="ERROR" />
 	<logger name="org.apache.http.impl.conn" level="ERROR" />
 
-	<!--logger name="org.hibernate.SQL" additivity="false" level="ERROR"/>
+	<logger name="org.hibernate.SQL" additivity="false" level="ERROR"/>
 	<logger name="org.hibernate.SQL" additivity="false" level="DEBUG"/>
 	<logger name="com.cisco.services.licensing.web.mapper" additivity="true" level="ERROR"/>
 	<logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor" level="TRACE" additivity="false"/>
-	<logger name="splunkLogger" level="INFO"/>-->
+	<logger name="splunkLogger" level="INFO"/>
 
 	<root level="ALL">
 		<appender-ref ref="console" />
-		<appender-ref ref="fileAppender" />
+		<!-- <appender-ref ref="fileAppender" /> -->
 	</root>
 </configuration>

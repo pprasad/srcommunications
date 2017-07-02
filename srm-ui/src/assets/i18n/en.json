@@ -1,0 +1,25 @@
+{
+  "header":{
+    "logoname":"SRCommunications"
+  },
+  "slider":{
+    "dashboard":"Dashboard",
+    "masterdata":"Master Data"
+  },
+  "form":{
+      "stockentry":{
+         "stockid":"Stock Id",
+         "stockname":"Stock Name",
+         "quantity":"Quantity",
+         "qtyprice":"Price",
+         "salprice":"Sale Price",
+         "totalamt":"Total Amount"
+      },
+      "category":{
+         "categoryname":"Category Name"
+      },
+      "grid":{
+        "search":"Search"
+      }
+  }
+}

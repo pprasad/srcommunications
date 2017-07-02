@@ -1,0 +1,44 @@
+:root{
+    --fontfamily:serif
+}
+.content-top {
+    padding-top:25px;
+    padding-bottom: 27px;
+}
+label,a{
+    font-family:var(--fontfamily); 
+}
+.input-md,.select-md{
+   width:15em;
+}
+.input-md-lg,.select-lg{
+   width:25em !important;
+}
+.input-group-md{
+    display:table; 
+}
+.input-group-md .form-control{
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 15em;
+    margin-bottom: 0;
+}
+.panel{
+    border:1px solid rgba(0,0,0,.12) !important;
+}
+.panel-heading{
+    border-bottom: 1px solid rgba(0,0,0,.12) !important;
+}
+.panel-title{
+    font-weight: 400 !important;
+    opacity: .9 !important;
+}
+@media screen and (max-width: 992px){
+    .input-group-md .form-control{
+        width:12.5em;
+    }
+}
+.col-form-label{
+   margin-top:0.5em;
+}
