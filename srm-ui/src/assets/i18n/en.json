@@ -18,6 +18,11 @@
       "category":{
          "categoryname":"Category Name"
       },
+      "product":{
+        "productcode":"Product Code",
+        "productname":"Product Name",
+        "producttype":"Product Type"
+      },
       "grid":{
         "search":"Search"
       }

@@ -6,4 +6,5 @@ export class Column{
     cell:Cell;
     width:string="20em";
     isEditable:boolean=false;
+    isNew:boolean=false;
 }

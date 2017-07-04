@@ -3,11 +3,11 @@
     <tbody>
        <tr *ngFor="let row of rows;let i=index">
             <td *ngFor="let col of row.Columns;let j=index">
-               <input type="text" value="{{col.cell.value}}" class="form-control" [(ngModel)]="col.cell.value" *ngIf="col.type==='Text' && col.isEditable">
+               <input type="text" value="{{col.cell.value}}" class="form-control" [(ngModel)]="col.cell.value" *ngIf="col.type==='Text' && col.isEditable" focusInput>
                <span *ngIf="!col.isEditable">{{col.cell.value}}</span>
                <button class="glyphicon glyphicon-edit"  *ngIf="col.type==='actions' && !col.isEditable" (click)="editRow(row)"></button>
                <button class="glyphicon glyphicon-ok"  *ngIf="col.type==='actions' && col.isEditable" (click)="updateRow(row)"></button>
-               <button class="glyphicon glyphicon-trash" *ngIf="col.type==='actions'" (click)="deleteRow(i)"></button>
+               <button class="glyphicon glyphicon-trash" *ngIf="col.type==='actions'" (click)="deleteRow(row)"></button>
             </td>              
         </tr>
     </tbody> 

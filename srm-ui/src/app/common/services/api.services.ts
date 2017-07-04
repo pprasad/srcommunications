@@ -9,17 +9,19 @@ import {Notification} from '../../common/notification/notification.model';
 export class ApiServices{
   private HTTP_POST_OPER = "post";
   private HTTP_GET_OPER = "get";
+  private HTTP_DELETE_OPER = "delete";
   private PARAM_TYPE_QUERY = "query";
   private PARAM_TYPE_HEADER = "header";
   public static ENV_TYPE=null;
-  private CONTEXT_PATH="http://localhost/srm";
+  private CONTEXT_PATH="http://localhost/services";
   constructor( private _http: Http,private _noteService:NotificationService) { }
   public execute(obj:RequestDto): Observable<any> {
       console.info(obj);
+      obj.serviceUrl=ApiServices.ENV_TYPE=='local'?(this.CONTEXT_PATH+obj.serviceUrl):obj.serviceUrl;
       if(obj.method.toLowerCase() == this.HTTP_POST_OPER ) {
             console.info("Executed");
             let options = this.setParamHeaders(obj,obj.model);
-            obj.serviceUrl=ApiServices.ENV_TYPE=='local'?(this.CONTEXT_PATH+obj.serviceUrl):obj.serviceUrl;
+            console.info(obj.model);
             return this._http.post(obj.serviceUrl,obj.model,options).map(( res: Response ) => res.json() ).catch( this.handleError );
       }else if ( obj.method.toLowerCase() == this.HTTP_GET_OPER ) {
             let paramQuery = {};
@@ -29,6 +31,9 @@ export class ApiServices{
                 paramQuery =obj.model;
             }
             return this._http.get( obj.serviceUrl, paramQuery ).map( res => res.json() ).catch( this.handleError );
+     }else if(obj.method.toLowerCase() == this.HTTP_DELETE_OPER){
+         let options = this.setParamHeaders(obj,obj.model);
+         return this._http.delete(obj.serviceUrl+obj.paramValue).map(res=>res.json()).catch(this.handleError);
      }
    }
    private handleError( error: any ) {

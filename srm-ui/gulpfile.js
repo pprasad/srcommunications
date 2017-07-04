@@ -10,7 +10,6 @@ var del = require('del');
 var webpack = require('webpack-stream');
 var htmlReplace = require('gulp-html-replace');
 var cssimport = require("gulp-cssimport");
-var conf = require('./conf');
 var browserSync = require('browser-sync');
 var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
@@ -76,39 +75,6 @@ gulp.task('dev:css',function(){
 	    .pipe(concat('srcomms.min.css'))
 	    .pipe(gulp.dest('dist/'));
 })
-var buildStyles = function () {
-  var sassOptions = {
-    style: 'expanded'
-  };
-
-  var injectFiles = gulp.src([
-    path.join(conf.paths.src, '/styles/**/_*.scss'),
-    '!' + path.join(conf.paths.src, '/styles/theme/conf/**/*.scss'),
-    '!' + path.join(conf.paths.src, '/styles/404.scss'),
-    '!' + path.join(conf.paths.src, '/styles/auth.scss')
-  ], {read: false});
-
-  var injectOptions = {
-    transform: function (filePath) {
-      filePath = filePath.replace(conf.paths.src + '/styles/', '');
-      return '@import "' + filePath + '";';
-    },
-    starttag: '// injector',
-    endtag: '// endinjector',
-    addRootSlash: false
-  };
-
-  return gulp.src([
-    path.join(conf.paths.src, '/styles/main.scss')
-  ])
-    .pipe($.inject(injectFiles, injectOptions))
-    //.pipe(wiredep(_.extend({}, conf.wiredep)))
-    .pipe($.sourcemaps.init())
-    .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
-    .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest(path.join(conf.paths.tmp)));
-};
 gulp.task('copy:fonts',function(){
    return gulp.src(['node_modules/bootstrap/dist/fonts/*.*'])
    .pipe(gulp.dest('fonts'));

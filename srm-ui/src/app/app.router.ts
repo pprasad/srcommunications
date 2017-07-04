@@ -11,12 +11,15 @@ import {TabComponent} from './tab/tab.component';
 import {TabsComponent} from './tab/tabs.component';
 /*ItemMaster*/
 import {CategoryComponent} from './master/category/category.component';
+import {SubCategoryComponent} from './master/category/subcategory.component';
 import {NotificationComponent} from './notification/notification.component';
 import {NotificationService} from './common/notification/notification.services';
 import {ApiServices} from './common/services/api.services';
 /*DataTable*/
 import {DataTable} from './datatable/datatable.component';
 import {NgCell} from './datatable/datatablecell.component';
+/*Directives*/
+import {FocusInputDirective} from './common/directives/inputfocus.component';
 export const routers:Routes=[
    { path: '', redirectTo: 'home', pathMatch: 'full'},
    {
@@ -33,6 +36,7 @@ export const routers:Routes=[
 export const appModules={
      providers:[NotificationService,ApiServices],
      component:[AppLayout,AppHeader,SidebarComponent,StockEntryComponent,ItemMasterComponent
-     ,TabsComponent,TabComponent,CategoryComponent,NotificationComponent,DataTable,NgCell],
+     ,TabsComponent,TabComponent,CategoryComponent,NotificationComponent,DataTable,NgCell,
+     FocusInputDirective,SubCategoryComponent],
      entryComponents:[]
 }

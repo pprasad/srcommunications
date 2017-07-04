@@ -21,7 +21,7 @@
 		            </table>
 	            </div>
 		        <div class="ng-content">
-			       <ngCell [rows]="rows" (updateFn)="update($event)"></ngCell>
+			       <ngCell [rows]="rows" (updateFn)="update($event)" (deleteFn)="delete($event)"></ngCell>
 		        </div>
 	      </div>
 	       <!--End inner scrollbar-->

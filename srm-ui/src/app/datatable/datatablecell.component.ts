@@ -9,11 +9,15 @@ import {Row} from './row.dto';
 export class NgCell{
     @Input() rows:Array<Row>=[];
     @Output() updateFn:EventEmitter<any>=new EventEmitter<any>();
+    @Output() deleteFn:EventEmitter<any>=new EventEmitter<any>();
     constructor(){
 
     }
-    public deleteRow(index:number):void{
-        this.rows.splice(index,1);
+    public deleteRow(row):void{
+       let index=this.rows.indexOf(row); 
+       console.info(index);
+       this.rows.splice(index,1);
+       this.deleteFn.emit(row);
     }
     public editRow(row:Row):void{
        row.Columns.forEach(ele=> {
@@ -35,4 +39,5 @@ export class NgCell{
            }
        });
     }
+   
 }

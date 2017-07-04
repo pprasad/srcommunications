@@ -1,0 +1,27 @@
+<form [formGroup]="subcateForm">
+   <div class="form-group row">
+      <label for="categoryname" class="col-sm-2 col-form-label">{{'form.product.productcode'|translate}}</label>
+      <div class="col-sm-10">
+         <input type="text" formControlName="productCode" class="form-control input-md" id="productCode" placeholder="Product Code">
+      </div>
+   </div>
+   <div class="form-group row">
+      <label for="categoryname" class="col-sm-2 col-form-label">{{'form.product.productname'|translate}}</label>
+      <div class="col-sm-10">
+         <input type="text" formControlName="productName" class="form-control input-md" id="productName" placeholder="Product Name">
+      </div>
+   </div>
+    <div class="form-group row">
+      <label for="categoryname" class="col-sm-2 col-form-label">{{'form.product.producttype'|translate}}</label>
+      <div class="col-sm-10">
+          <select formControlName="productType">
+
+          </select>
+      </div>
+   </div>
+   <div class="form-group row">
+       <div class="offset-sm-2 col-sm-10">
+          <button type="submit" (click)="save()" class="btn btn-primary">Save</button>
+       </div>
+   </div>
+</form>

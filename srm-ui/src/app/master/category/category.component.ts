@@ -22,11 +22,11 @@ export class CategoryComponent implements OnInit{
         this.gridOptions.filter=true;
         this.gridOptions.columnDefs=[
             {
-              name:"cate_id",
+              name:"cateId",
               title:"Category Id",
               type:"label"  
             },{
-              name:"cate_name",
+              name:"cateName",
               title:"Category Name",
               type:"Text"  
             },{
@@ -35,25 +35,44 @@ export class CategoryComponent implements OnInit{
                type:"actions"
             }
         ];
-        this.gridOptions.data=[{"cate_id":1,"cate_name":"Books"},
-        {"cate_id":2,"cate_name":"Pens"},{"cate_id":3,"cate_name":"Gift Artials"},
-        {"cate_id":4,"cate_name":"Mobiles"},{"cate_id":5,"cate_name":"Mobilescases"}];
+        this.gridOptions.data=[];
+        this.getDetails();
+    }
+    public getDetails(){
+        this.request=new RequestDto();
+        this.request.serviceUrl=API_URLS.CATEGORY_GET;
+        this.request.method=HTTP_METHODS.GET;
+        this.apiServices.execute(this.request).subscribe(res=>{ 
+            this.gridOptions.data=res.response;
+        });
+        
     }
     public save(obj){
         console.info("Save.....");
-        console.info(obj);
-        console.info(this.catergoryForm.value);
         let cate=new Category();
         ObjectMapper.converObjToClassObj(obj,cate);
-        console.info(cate);
         this.request=new RequestDto();
         this.request.serviceUrl=API_URLS.CATEGORY_URL;
         this.request.method=HTTP_METHODS.POST;
-        this.request.model=cate;
+        this.request.model=JSON.stringify(cate);
         this.apiServices.execute(this.request).subscribe(res=>{ 
-            this.notes=new Notification(NOTICES.SUCCESS,"Succs");
+            this.notes=new Notification(NOTICES.SUCCESS,res.result);
             this.apiServices.pushNotification(this.notes);
         });
-       
+    }
+    public delete(obj){
+        console.info("******delete category********");
+        let cate=new Category();
+        ObjectMapper.converObjToClassObj(obj,cate);
+        this.request=new RequestDto();
+        this.request.serviceUrl=API_URLS.CATEGORY_DELETE;
+        this.request.method=HTTP_METHODS.DELETE;
+        if(cate.cateId!=null){
+            this.request.paramValue=cate.cateId;
+            this.apiServices.execute(this.request).subscribe(res=>{ 
+                this.notes=new Notification(NOTICES.SUCCESS,res.result);
+                this.apiServices.pushNotification(this.notes);
+            });
+        }
     }
 }
