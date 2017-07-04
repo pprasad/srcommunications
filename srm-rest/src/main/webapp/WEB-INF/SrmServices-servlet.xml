@@ -3,17 +3,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+        http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
 	<context:annotation-config />
 	<context:component-scan base-package="com.srm.services.**"></context:component-scan>
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -21,23 +26,35 @@
 			<value>classpath:application.properties</value>
 		</property>
 	</bean>
-	<!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="url" value="#{ 'jdbc:postgresql://'+ @dbUrl.getHost() + ':'+@dbUrl.getPort()+@dbUrl.getPath() }"/>
-        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
-        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
-    </bean> -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassname}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="5"/>
+    	<property name="maxActive" value="55"/>
+    	<property name="maxIdle" value="21"/>
+    	<property name="minIdle" value="13"/>
+    </bean>
+    <!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassname}"></property>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-    </bean>
+    </bean> -->
+    <bean id="auditInterceptor" class="com.srm.services.interceptor.AuditoInterceptor"></bean>
 	<bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="connection.autoReconnect">true</prop>
+				<prop key="connection.autoReconnectForPools">true</prop>
+				<prop key="connection.is-connection-validation-required">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</prop> -->
 			</props>
 		</property>
 		<property name="packagesToScan">
@@ -45,8 +62,34 @@
 				<value>com.srm.services.entity</value>
 			</list>
 		</property>
+		<property name="entityInterceptor" ref="auditInterceptor"></property>
 	</bean>
 	<bean id="hibernateTransactionManager"  class="org.springframework.orm.hibernate4.HibernateTransactionManager">
     	<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean name="jackson2ObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+	    <property name="indentOutput" value="true"/>
+	</bean>    
+	<mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	            <property name="objectMapper" ref="jackson2ObjectMapper" />
+	        </bean>
+	    </mvc:message-converters>
+	</mvc:annotation-driven>
+	<mvc:cors>
+	   <mvc:mapping path="/**/*" allowed-origins="http://localhost:3000" allowed-methods="*"/>
+	   <!-- <mvc:mapping path="/deleteCategorys/**" allowed-origins="http://localhost:3000" /> -->
+	</mvc:cors>
+	<!-- <security:http use-expressions="true" auto-config="true">
+	  <security:intercept-url pattern="/**" access="permitAll"></security:intercept-url>
+	</security:http>
+	<security:authentication-manager >
+	   <security:authentication-provider >
+	      <security:user-service>
+	         <security:user name="prasad"  authorities="ROLE_ADMIN"/>
+	      </security:user-service>
+	   </security:authentication-provider>
+	</security:authentication-manager>
+	<security:global-method-security secured-annotations="disabled"></security:global-method-security> -->
 </beans>       
