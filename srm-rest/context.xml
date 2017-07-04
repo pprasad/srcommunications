@@ -1,0 +1,35 @@
+<Context>
+
+	<Resource name="jdbc/PROVISIONDATASRC"
+	    global="jdbc/PROVISIONDATASRC"  
+		auth="Container" 
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="${OPENSHIFT_DB_URL}" 
+		username="${OPENSHIFT_DB_USERNAME}"
+		password="${OPENSHIFT_DB_PASSWORD}" 
+		maxActive="60"
+		maxIdle="1"
+		initialSize="2"
+		minIdle="2"
+		jmxEnabled="true"
+		timeBetweenEvictionRunsMillis="180000"
+		minEvictableIdleTimeMillis="180000"
+		maxWait="20000"
+		logAbandoned="false"
+		testOnBorrow="true"
+		testOnConnect="true"
+		suspectTimeout="120"
+		validationQuery="select 1 from dual"
+		validationInterval="200"
+		initSQL="select 1 from dual"
+		removeAbandoned="true"
+		removeAbandonedTimeout="1800"
+		maxAge="180000"
+	
+	/>
+ <!-- Common Login page -->	
+  <Realm className="org.apache.catalina.realm.JNDIRealm"
+	connectionURL="ldap://dsx.cisco.com:389" userPattern="uid={0},ou=ccoentities,o=cco.cisco.com"
+	roleBase="ou=groups,o=cco.cisco.com" roleName="cn" />
+</Context>
