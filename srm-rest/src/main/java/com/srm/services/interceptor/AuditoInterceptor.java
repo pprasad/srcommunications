@@ -9,14 +9,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.srm.services.dto.ServiceConstant;
+import com.srm.services.dto.SessionDetails;
+import com.srm.services.entity.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 /*
  * @Auth:Prasad
  * @Date:02/07/2017
  * @Descritpion: it will udpate create/update information for each table
  */
 public class AuditoInterceptor extends EmptyInterceptor{
-	private static final Logger LOGGER=LoggerFactory.getLogger(AuditoInterceptor.class);
 	
+        private static final Logger LOGGER=LoggerFactory.getLogger(AuditoInterceptor.class);
+	@Autowired private SessionDetails userInfo;
 	private String loginUser=null;
 	private Date createOn=null;
 	@Override
@@ -24,7 +28,7 @@ public class AuditoInterceptor extends EmptyInterceptor{
 		// TODO Auto-generated method stub
 		loginUser=loginUser!=null?loginUser:"Guest";
 		createOn=createOn!=null?createOn:new Date();
-		setValue(state,propertyNames,ServiceConstant.LOG_CREATED_BY,loginUser);
+		setValue(state,propertyNames,ServiceConstant.LOG_CREATED_BY,userInfo.getLogin());
 		setValue(state,propertyNames,ServiceConstant.LOG_CREATED_ON,createOn);
 		setValue(state,propertyNames,ServiceConstant.LOG_PUI_ENTRY_ON,new Date());
 		setValue(state,propertyNames,ServiceConstant.LOG_CREATED_TIME,new Date());
@@ -35,14 +39,11 @@ public class AuditoInterceptor extends EmptyInterceptor{
 	public boolean onFlushDirty(Object entity, Serializable id,Object[] currentState, Object[] previousState,String[] propertyNames, Type[] types) {
 		loginUser=loginUser!=null?loginUser:"Guest";
 		createOn=createOn!=null?createOn:new Date();
-		if(previousState!=null){
-		  setValue(currentState,propertyNames,ServiceConstant.LOG_UPDATED_BY,loginUser);
-		  setValue(currentState,propertyNames,ServiceConstant.LOG_UPDATED_ON,new Date());
-		//return super.onFlushDirty(entity, id, currentState, previousState,propertyNames, types);
-		   return true;
-		}else{
-		   return false;
-		}
+                 setValue(currentState,propertyNames,ServiceConstant.LOG_CREATED_BY,userInfo.getLogin());
+		 setValue(currentState,propertyNames,ServiceConstant.LOG_CREATED_ON,createOn);
+		 setValue(currentState,propertyNames,ServiceConstant.LOG_UPDATED_BY,userInfo.getLogin());
+		 setValue(currentState,propertyNames,ServiceConstant.LOG_UPDATED_ON,new Date());
+                 return true;
 	}
 	private void setValue(Object[] currentState,String[] propertyNames,String propertyToSet, Object value) {    
 		 Integer index=-1;

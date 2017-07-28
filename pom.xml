@@ -23,5 +23,6 @@
 	<modules>
 		<module>srm-rest</module>
 		<module>srm-ui</module>
+		<module>srm-swings</module>
 	</modules>
 </project>

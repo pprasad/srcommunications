@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>srm-rest</artifactId>
 	<dependencies>
-		<dependency>
+<!--		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
@@ -42,7 +42,7 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>${tomcat.version}</version>
-		</dependency>
+		</dependency>-->
 		<!-- Slf4j & logback -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -70,7 +70,7 @@
 			<version>${logback.version}</version>
 		</dependency>
 		<!-- Spring configuration -->
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
@@ -78,6 +78,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>-->
+                <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
@@ -90,7 +95,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${spring.security.version}</version>
@@ -99,7 +104,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring.security.version}</version>
-		</dependency>
+		</dependency>-->
 		<!--cglib -->
 		<!-- <dependency> <groupId>cglib</groupId> <artifactId>cglib</artifactId> 
 			<version>${cglib.version}</version> </dependency> -->
