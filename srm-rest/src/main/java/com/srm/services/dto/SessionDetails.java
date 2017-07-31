@@ -6,6 +6,7 @@
 
 package com.srm.services.dto;
 
+import com.srm.services.entity.UserInfo;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class SessionDetails {
     private String userName;
     private String login;
-
+    private UserInfo userInfo;
     public String getUserName() {
         return userName;
     }
@@ -31,6 +32,14 @@ public class SessionDetails {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
     
 }

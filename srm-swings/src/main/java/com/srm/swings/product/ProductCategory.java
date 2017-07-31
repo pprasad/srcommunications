@@ -10,6 +10,7 @@ import com.srm.services.entity.Category;
 import com.srm.services.entity.CategoryProduct;
 import com.srm.services.entity.ProductEntry;
 import com.srm.services.rest.services.TransactionService;
+import com.srm.swings.util.UIUtils;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -155,6 +156,7 @@ public class ProductCategory extends javax.swing.JInternalFrame {
         productCateTable.setRowHeight(45);
         productCateTable.revalidate();
         jScrollPane2.setViewportView(productCateTable);
+        UIUtils.setTableSettings(productCateTable);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
@@ -351,6 +353,7 @@ public class ProductCategory extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(categoryProductTable);
         loadProdcateSubCategoryTableDetails();
         productCodeJBox.setModel(new DefaultComboBoxModel(new Vector(categoryProducts)));
+        UIUtils.setTableSettings(categoryProductTable);
 
         jButton7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edit_clear.png"))); // NOI18N
@@ -449,6 +452,7 @@ public class ProductCategory extends javax.swing.JInternalFrame {
             }
 
         });
+        productCodeJBox.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         productCodeJBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 productCodeJBoxItemStateChanged(evt);
@@ -629,6 +633,7 @@ public class ProductCategory extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane3.setViewportView(jtableProductEntry);
+        UIUtils.setTableSettings(jtableProductEntry);
 
         textFieldEntryDate.setDateFormatString("dd/MMM/yyy");
         textFieldEntryDate.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N

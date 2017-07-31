@@ -12,6 +12,7 @@
 package com.srm.swings.components;
 
 import com.srm.services.dto.SessionDetails;
+import com.srm.services.entity.UserInfo;
 import com.srm.swings.billinfo.BillGenerateForm;
 import com.srm.swings.luncher.LoginForm;
 import com.srm.swings.product.ProductCategory;
@@ -48,25 +49,24 @@ public class NextWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jDesktopPane = new com.srm.swings.components.MDIDesktopPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelloginUser = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        productCategoryMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        salesBillEntryMenu = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        headerSettingMenuitem = new javax.swing.JMenuItem();
+        newuserMenuitem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SRCOMMUNICATIONS");
         setFont(new java.awt.Font("Elephant", 0, 36)); // NOI18N
 
-        jDesktopPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(255, 51, 0), new java.awt.Color(255, 51, 0), new java.awt.Color(204, 0, 51), new java.awt.Color(204, 0, 0)));
+        jDesktopPane=new MDIDesktopPane();
         jScrollPane1.setViewportView(jDesktopPane);
 
         jPanel2.setBackground(new java.awt.Color(223, 190, 153));
@@ -122,14 +122,14 @@ public class NextWindow extends javax.swing.JFrame {
         jMenu1.setBorderPainted(true);
         jMenu1.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jMenuItem1.setText("Product Categories");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        productCategoryMenu.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        productCategoryMenu.setText("Product Categories");
+        productCategoryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                productCategoryMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(productCategoryMenu);
 
         jMenuBar1.add(jMenu1);
 
@@ -139,14 +139,14 @@ public class NextWindow extends javax.swing.JFrame {
         jMenu2.setBorderPainted(true);
         jMenu2.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jMenuItem2.setText("Sales Bill Entry");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        salesBillEntryMenu.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        salesBillEntryMenu.setText("Sales Bill Entry");
+        salesBillEntryMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                salesBillEntryMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(salesBillEntryMenu);
 
         jMenuBar1.add(jMenu2);
 
@@ -156,24 +156,24 @@ public class NextWindow extends javax.swing.JFrame {
         jMenu3.setBorderPainted(true);
         jMenu3.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jMenuItem3.setText("Header Setting");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        headerSettingMenuitem.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        headerSettingMenuitem.setText("Header Setting");
+        headerSettingMenuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                headerSettingMenuitemActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(headerSettingMenuitem);
 
-        jMenuItem4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user.png"))); // NOI18N
-        jMenuItem4.setText("New User");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        newuserMenuitem.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        newuserMenuitem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user.png"))); // NOI18N
+        newuserMenuitem.setText("New User");
+        newuserMenuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                newuserMenuitemActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        jMenu3.add(newuserMenuitem);
 
         jMenuBar1.add(jMenu3);
 
@@ -198,27 +198,27 @@ public class NextWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void productCategoryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productCategoryMenuActionPerformed
         // TODO add your handling code here:
         //productCategory.init();
         productCategory.show();
         jDesktopPane.add(productCategory);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_productCategoryMenuActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void salesBillEntryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesBillEntryMenuActionPerformed
         billGenerateForm.show();
         jDesktopPane.add(billGenerateForm);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_salesBillEntryMenuActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void headerSettingMenuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_headerSettingMenuitemActionPerformed
        headerSetting.setLocationRelativeTo(this);
        headerSetting.show();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_headerSettingMenuitemActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void newuserMenuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newuserMenuitemActionPerformed
         newUserForm.setLocationRelativeTo(this);
         newUserForm.show();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_newuserMenuitemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
@@ -227,6 +227,27 @@ public class NextWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     public void setLoginId(){
          labelloginUser.setText(userSession.getUserName());
+         UserInfo userInfo=userSession.getUserInfo();
+         if(userInfo.isStockEntryAccess()){
+             productCategoryMenu.setEnabled(true);
+         }else{
+             productCategoryMenu.setEnabled(false);
+         }
+         if(userInfo.isBillEntryAccess()){
+             salesBillEntryMenu.setEnabled(true);
+         }else{
+             salesBillEntryMenu.setEnabled(false);
+         }
+         if(userInfo.isNewuserAccess()){
+             newuserMenuitem.setEnabled(true);
+         }else{
+             newuserMenuitem.setEnabled(false);
+         }
+         if(userInfo.isSystemAccess()){
+            headerSettingMenuitem.setEnabled(true);
+         }else{
+            headerSettingMenuitem.setEnabled(false);
+         }
     }
     @Autowired ProductCategory productCategory;
     @Autowired BillGenerateForm billGenerateForm;
@@ -234,21 +255,21 @@ public class NextWindow extends javax.swing.JFrame {
     @Autowired SessionDetails userSession;
     @Autowired NewUserForm newUserForm;
     @Autowired LoginForm loginForm;
+    private MDIDesktopPane jDesktopPane;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem headerSettingMenuitem;
     private javax.swing.JButton jButton1;
-    private com.srm.swings.components.MDIDesktopPane jDesktopPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelloginUser;
+    private javax.swing.JMenuItem newuserMenuitem;
+    private javax.swing.JMenuItem productCategoryMenu;
+    private javax.swing.JMenuItem salesBillEntryMenu;
     // End of variables declaration//GEN-END:variables
 
 }

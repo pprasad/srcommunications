@@ -9,11 +9,15 @@ package com.srm.swings.util;
 import com.srm.services.dto.ServiceConstant;
 import com.srm.services.entity.CustomerDetails;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -48,5 +52,9 @@ public class UIUtils {
             }
         }
     }
-    
+    public static void setTableSettings(JTable jTable) {
+       Font font =new FontUIResource("Times New Roman", Font.PLAIN,28);
+       JTableHeader header =jTable.getTableHeader();
+       header.setFont(font);
+    }
 }

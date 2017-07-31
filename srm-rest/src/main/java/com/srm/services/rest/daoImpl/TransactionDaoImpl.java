@@ -695,7 +695,7 @@ public class TransactionDaoImpl implements TransactionDao {
             session=sessionFactory.openSession();
             trans=session.beginTransaction();
             UserInfo userInfo=findUserDetailsById(id);
-            session.update(userInfo);
+            session.delete( userInfo);
             trans.commit();
             return true;
         }catch (Exception ex) {

@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -80,6 +81,7 @@ public class NewUserForm extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("User Entry Form");
 
         userdetailsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "New User", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Elephant", 0, 24))); // NOI18N
 
@@ -376,7 +378,21 @@ public class NewUserForm extends javax.swing.JDialog {
     }//GEN-LAST:event_jRadioNoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       if(userInfo!=null){
+           if(transactionService.deleteUserDetails(userInfo.getId())){
+               UIUtils.dialogBox(ServiceConstant.ACTION_DELETE,this);
+               TreePath treePath=jTreeUsersList.getSelectionPath();
+               DefaultMutableTreeNode childNode=(DefaultMutableTreeNode)treePath.getLastPathComponent();
+               userTreeModel.removeNodeFromParent(childNode);
+               userTreeModel.reload();
+                UIUtils.clearFields(userdetailsPanel);
+                UIUtils.clearFields(permissionPanel);
+                jRadioNo.setSelected(true);
+                textFieldPassword.setEditable(true);
+                textFieldLoginId.setEditable(true);
+                userInfo=null;
+           }
+       }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -419,33 +435,35 @@ public class NewUserForm extends javax.swing.JDialog {
 
     private void jTreeUsersListValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeUsersListValueChanged
         TreePath treePath=evt.getNewLeadSelectionPath();
-        DefaultMutableTreeNode selectedUser=(DefaultMutableTreeNode)treePath.getLastPathComponent();
-        if(selectedUser.getUserObject()!=null){
-            userInfo=transactionService.findUserByLoginId(selectedUser.getUserObject().toString());
-            if(userInfo!=null){
-                textFieldPassword.setEditable(false);
-                textFieldLoginId.setEditable(false);
-                textFieldUserId.setText(userInfo.getId().toString());
-                textFieldUserName.setText(userInfo.getUserName());
-                textFieldLoginId.setText(userInfo.getLoginId());
-                try {
-                    textFieldPassword.setText(secureEncryption.decrypt(userInfo.getPassWord()));
-                } catch (Exception ex) {
-                    Logger.getLogger(NewUserForm.class.getName()).log(Level.SEVERE, null, ex);
+        if(treePath!=null){
+            selectedUser=(DefaultMutableTreeNode)treePath.getLastPathComponent();
+            if(selectedUser.getUserObject()!=null){
+                userInfo=transactionService.findUserByLoginId(selectedUser.getUserObject().toString());
+                if(userInfo!=null){
+                    textFieldPassword.setEditable(false);
+                    textFieldLoginId.setEditable(false);
+                    textFieldUserId.setText(userInfo.getId().toString());
+                    textFieldUserName.setText(userInfo.getUserName());
+                    textFieldLoginId.setText(userInfo.getLoginId());
+                    try {
+                        textFieldPassword.setText(secureEncryption.decrypt(userInfo.getPassWord()));
+                    } catch (Exception ex) {
+                        Logger.getLogger(NewUserForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if(userInfo.getActive()!=null && ServiceConstant.DEFAULT_USE_YES.equals(userInfo.getActive())){
+                        jRadioYes.setSelected(true);
+                    }else{
+                        jRadioNo.setSelected(true);
+                    }
+                    jCheckBillEntry.setSelected(userInfo.isBillEntryAccess());
+                    jCheckStockentry.setSelected(userInfo.isStockEntryAccess());
+                    jChecknewUser.setSelected(userInfo.isNewuserAccess());
+                    jCheckViewReports.setSelected(userInfo.isViewReportAccess());
+                    jCheckSystems.setSelected(userInfo.isSystemAccess());
                 }
-                if(userInfo.getActive()!=null && ServiceConstant.DEFAULT_USE_YES.equals(userInfo.getActive())){
-                    jRadioYes.setSelected(true);
-                }else{
-                    jRadioNo.setSelected(true);
-                }
-                jCheckBillEntry.setSelected(userInfo.isBillEntryAccess());
-                jCheckStockentry.setSelected(userInfo.isStockEntryAccess());
-                jChecknewUser.setSelected(userInfo.isNewuserAccess());
-                jCheckViewReports.setSelected(userInfo.isViewReportAccess());
-                jCheckSystems.setSelected(userInfo.isSystemAccess());
             }
         }
-          
+        selectedUser=null;  
     }//GEN-LAST:event_jTreeUsersListValueChanged
 
     private void jTreeUsersListVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTreeUsersListVetoableChange
@@ -464,6 +482,7 @@ public class NewUserForm extends javax.swing.JDialog {
             rootNode.add(new DefaultMutableTreeNode(userInfo.getLoginId()));
         }
     }
+    private DefaultMutableTreeNode selectedUser=null;
     private DefaultTreeModel userTreeModel;
     private DefaultMutableTreeNode rootNode;
     private UserInfo userInfo=null;

@@ -140,6 +140,7 @@
                     <Property name="rowHeight" type="int" value="45"/>
                   </Properties>
                   <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="UIUtils.setTableSettings(productCateTable);"/>
                     <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="loadProductTypeDetails();"/>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="productCateTable.revalidate();"/>
                   </AuxValues>
@@ -393,7 +394,7 @@
                     <Property name="rowHeight" type="int" value="45"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="loadProdcateSubCategoryTableDetails();&#xa;productCodeJBox.setModel(new DefaultComboBoxModel(new Vector(categoryProducts)));"/>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="loadProdcateSubCategoryTableDetails();&#xa;productCodeJBox.setModel(new DefaultComboBoxModel(new Vector(categoryProducts)));&#xa;UIUtils.setTableSettings(categoryProductTable);"/>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="categoryProductTable.getColumn (&quot;Product Type&quot;).setCellRenderer(new DefaultTableCellRenderer(){&#xa;            @Override&#xa;        public java.awt.Component getTableCellRendererComponent&#xa;        (JTable table, Object value&#xa;        , boolean isSelected, boolean hasFocus, int row, int column&#xa;        &#xa;            ) {&#xa;                 if (value instanceof Category) {&#xa;                Category category = (Category) value;&#xa;                setText(category.getCateName());&#xa;                Font font = UIManager.getFont(&quot;TableHeader.font&quot;);&#xa;                font = font.deriveFont(21f);&#xa;                setFont(font);&#xa;            }&#xa;            return this;&#xa;        }&#xa;&#xa;    });&#xa;jtableProductTypeBox=new JComboBox(new Vector(categorys));&#xa;        jtableProductTypeBox.setRenderer(new BasicComboBoxRenderer(){&#xa;        @Override&#xa;        public java.awt.Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {&#xa;                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);&#xa;                if(value!=null){&#xa;                    Category category=(Category)value;&#xa;                    setText(category.getCateName());&#xa;                }&#xa;                return this;&#xa;            }&#xa;             &#xa;        });&#xa;        categoryProductTable.getColumn(&quot;Product Type&quot;).setCellEditor(new DefaultCellEditor(jtableProductTypeBox));"/>
                   </AuxValues>
                 </Component>
@@ -564,6 +565,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="productCodeJBox">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="24" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
@@ -763,7 +767,7 @@
                         <Column editable="true" title="Amount" type="java.lang.Double"/>
                       </Table>
                     </Property>
-                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" preCode="UIUtils.setTableSettings(jtableProductEntry);">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
