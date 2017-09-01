@@ -10,6 +10,7 @@ import com.srm.services.entity.CustomerDetails;
 import com.srm.services.entity.HeaderSettings;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -18,9 +19,16 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.JPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 /**
  *
@@ -28,105 +36,165 @@ import javax.swing.JPanel;
  */
 public class BillReceiptView extends JPanel implements Printable {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(BillReceiptView.class);
+
     private final Rectangle2D.Double square
             = new Rectangle2D.Double(10, 10, 478, 185);
 
     private PrintRequestAttributeSet attributes;
 
     private final static String HEADER_FONT = "Monospaced";
-    
-    private final static String HEADER_CONTANT="SRCOMMUNICATIONS";
-    
-    private CustomerDetails customerDetails=null;
-    
-    private HeaderSettings headerSettings=null;
-    
-    private  static String title[] = new String[] {"Item ID","Item Name","Price","Quantity","Amount"};
-    
-    private Integer total_item_count=0;
 
+    private final static String HEADER_CONTANT = "SRCOMMUNICATIONS";
+
+    private CustomerDetails customerDetails = null;
+
+    private HeaderSettings headerSettings = null;
+
+    public static int total_item_count = 0;
+
+    public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss a";
+
+    public static String title[] = new String[]{"Item ID", "Item Name", "Price", "Quantity", "Amount"};
+
+    private static DecimalFormat currentyFormat = new DecimalFormat("###,###.##");
+    
+    private Double total=0d;
+    
     public BillReceiptView() {
-       init();
+        init();
     }
 
     public BillReceiptView(CustomerDetails customerDetails) {
         init();
-        this.customerDetails=customerDetails;
+        this.customerDetails = customerDetails;
     }
-    public BillReceiptView(CustomerDetails customerDetails,HeaderSettings headerSettings) {
+
+    public BillReceiptView(CustomerDetails customerDetails, HeaderSettings headerSettings) {
         init();
-        this.customerDetails=customerDetails;
-        this.headerSettings=headerSettings;
+        this.customerDetails = customerDetails;
+        this.headerSettings = headerSettings;
     }
-    public void init(){
+
+    public void init() {
         this.setBackground(Color.WHITE);
     }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        //Draw Header Part
-        int y=30;
-        if(headerSettings!=null){
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.BOLD,25));y+=10;
-            g2d.drawString(headerSettings.getCompanyName(),300,y);y+=20;
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.BOLD,18));
-            g2d.drawString(headerSettings.getAddress()+","+headerSettings.getAddressSub(),250,y);y+=20;
-            g2d.drawString("Contact No."+headerSettings.getContactNo(),300,y);y+=20;
+
+    public String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
+    }
+
+    public String toString(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(date);
+    }
+
+    public PageFormat getPageFormat(PrinterJob printerJob) {
+        PageFormat pf = printerJob.defaultPage();
+        Paper paper = pf.getPaper();
+        double middleHeight = total_item_count * 1.0;  //dynamic----->change with the row count of jtable
+        double headerHeight = 5.0;                  //fixed----->but can be mod
+        double footerHeight = 5.0;                  //fixed----->but can be mod
+
+        double width = convert_CM_To_PPI(28);      //printer know only point per inch.default value is 72ppi
+
+        double height = convert_CM_To_PPI(headerHeight + middleHeight + footerHeight);
+        LOGGER.info("Width{}" + width);
+        LOGGER.info("Height{}" + height);
+        paper.setSize(width, height);
+        paper.setImageableArea(
+                convert_CM_To_PPI(0.25),
+                convert_CM_To_PPI(0.5),
+                width - convert_CM_To_PPI(0.35),
+                height - convert_CM_To_PPI(1));   //define boarder size    after that print area width is about 180 points
+
+        pf.setOrientation(PageFormat.PORTRAIT);           //select orientation portrait or landscape but for this time portrait
+        pf.setPaper(paper);
+
+        return pf;
+    }
+
+    protected double convert_CM_To_PPI(double cm) {
+        return toPPI(cm * 0.393600787);
+    }
+
+    protected double toPPI(double inch) {
+        return inch * 72d;
+    }
+//
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//       Graphics2D g2 = (Graphics2D) g;
+//      
+//        Font font = new Font("Monospaced", Font.PLAIN, 16);
+//        g2.setFont(font);
+//        int y = 0;
+//        if (headerSettings != null) {
+//            g2.drawString(headerSettings.getCompanyName(), 100, y + 20);;
+//            font = new Font("Monospaced", Font.PLAIN, 15);
+//            g2.setFont(font);
+//            g2.drawString(headerSettings.getAddress(), 50, y + 40);
+//            g2.drawString(headerSettings.getAddressSub(), 50, y + 60);
+//            g2.drawString("GST No.:" + headerSettings.getRegistrationNo(), 50, y + 80);
+//        }
+//        /*Customer Details information*/
+//        font = new Font("Monospaced", Font.PLAIN, 10);
+//        g2.setFont(font);
+//        g2.drawString("Bill No.     :" + customerDetails.getBillNo(), 50, y + 100);
+//        g2.drawString("Date         :" + toString(customerDetails.getBillDate()), 50, y + 120);
+//        g2.drawString("Customer Name:" + customerDetails.getCustomerName(), 50, y + 140);
+//        /*Draw Colums*/
+//        font = new Font("Monospaced", Font.PLAIN, 10);
+//        g2.setFont(font);
+//        int x = 10;
+//        g2.drawLine(10, y + 150, 400, y + 150);
+//        g2.drawString(title[0], x, y + 170);
+//        g2.drawString(title[1], x + 55, y + 170);
+//        g2.drawString(title[2], x + 155, y + 170);
+//        g2.drawString(title[3], x + 205, y + 170);
+//        g2.drawString(title[4], x + 290, y + 170);
+//        g2.drawLine(10, y + 180, 400, y + 180);
+//        /*items print*/
+//        int cH = 0, i = 0;
+//        LOGGER.info("customerDetails.getBillEntrys()"+customerDetails.getBillEntrys().size());
+//        if (customerDetails.getBillEntrys() != null) {
+//            total_item_count = customerDetails.getBillEntrys().size()+2;
+//            for (BillEntry billEntry : customerDetails.getBillEntrys()) {
+//                cH = (y +200) + (10 * i);
+//                g2.drawString(billEntry.getProdCode(), x, cH);
+//                g2.drawString(billEntry.getProdName(), x + 55, cH);
+//                g2.drawString(currentyFormat.format(billEntry.getPrice()), x + 155, cH);
+//                g2.drawString(billEntry.getQty().toString(), x + 205, cH);
+//                g2.drawString(billEntry.getAmount().toString(), x + 290, cH);
+//                i++;
+//
+//            }
+//        }
+//    }
+
+    public void printReceipt() {
+        // Create the PrintJob object
+        attributes = new HashPrintRequestAttributeSet();
+        PrinterJob pjb = PrinterJob.getPrinterJob();
+        pjb.setPrintable(this);
+        boolean flag=pjb.printDialog(attributes);
+        try {
+           if(flag){
+              pjb.print();
+           }
+        } catch (Exception ex) {
+
         }
-        if(customerDetails!=null){
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.BOLD,16));
-            g2d.drawString("Date:",30,y+30);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.PLAIN,16));
-            g2d.drawString(customerDetails.getBillDate().toString(),90,y+30);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.BOLD,16));
-            g2d.drawString("Bill No.:",600,y+30);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.PLAIN,16));
-            g2d.drawString(customerDetails.getBillNo().toString(),700,y+30);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.BOLD,16));
-            g2d.drawString("Customer Name:",30,y+60);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.PLAIN,16));
-            g2d.drawString(customerDetails.getCustomerName(),200,y+60);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.PLAIN,16));
-            g2d.drawString(customerDetails.getBillNo().toString(),700,y+30);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.BOLD,16));
-            g2d.drawString("Contact No.:",30,y+90);
-            g2d.setFont(new java.awt.Font(HEADER_FONT,Font.PLAIN,16));
-            g2d.drawString(customerDetails.getCustomerContact(),200,y+90);
-            g2d.drawLine(30,y+120,700,y+120);
-            /*Item Information*/
-            g2d.drawString(title[0],30,y+140);
-            g2d.drawString(title[1],150,y+140);
-            g2d.drawString(title[2],350,y+140);
-            g2d.drawString(title[3],450,y+140);
-            g2d.drawString(title[4],550,y+140);
-            g2d.drawLine(30,y+160,700,y+160);
-            int cH=0;int i=0;Double total=0d;
-            if(customerDetails.getBillEntrys()!=null){
-                total_item_count=customerDetails.getBillEntrys().size()+2;
-                for(BillEntry billEntry:customerDetails.getBillEntrys()){
-                    cH = (y+180) + (20*i);
-                    g2d.drawString(billEntry.getProdCode(),30,cH);
-	            g2d.drawString(billEntry.getProdName(),150,cH);
-	            g2d.drawString(billEntry.getPrice().toString(),350,cH);
-                    g2d.drawString(billEntry.getQty().toString(),450,cH);
-                    g2d.drawString(billEntry.getAmount().toString(),550,cH);
-                    total+=billEntry.getAmount();
-                    i++;
-                }
-                g2d.drawLine(30,cH+30,700,cH+30);
-                g2d.drawString(total.toString(),550,cH+50);
-            }
-            /*Footer*/
-	    Font font = new Font("Arial",Font.BOLD,16) ;                  //changed font size
-	    g2d.setFont(font);
-            g2d.drawString("Thank You Come Again",300,cH+100);
-        }
-        
-        //g2d.draw(square);
+    }
+
+    public JPanel getPanel() {
+        return this;
     }
 
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        LOGGER.info("pageindex{}" + pageIndex);
         if (pageIndex >= 1) {
             return Printable.NO_SUCH_PAGE;
         }
@@ -135,44 +203,58 @@ public class BillReceiptView extends JPanel implements Printable {
         double width = pageFormat.getImageableWidth();
         g2.translate(pageFormat.getImageableX(),
                 pageFormat.getImageableY());
-        //g2.translate(0f, 0f);
-        this.print(g2);
-        return Printable.PAGE_EXISTS;
-    }
-
-    public PageFormat getPageFormat(PrinterJob printerJob){
-        PageFormat pf=printerJob.defaultPage();
-        Paper paper=pf.getPaper();
-        double middleHeight=total_item_count*1.0;
-        double headerHeight = 20.0;                  
-        double footerHeight = 30.0;
-        double width=convertCMToPPI(7d);
-        double height=convertCMToPPI(headerHeight+middleHeight+footerHeight);
-        paper.setSize(width, height);
-        paper.setImageableArea(convertCMToPPI(0.25d),convertCMToPPI(0.5d),width-convertCMToPPI(0.35d), height-convertCMToPPI(1d));
-        pf.setOrientation(PageFormat.PORTRAIT);
-        pf.setPaper(paper);
-        return pf;
-    }
-    public Double convertCMToPPI(Double cm){
-        return toPPI(cm* 0.393600787);
-    }
-    public Double toPPI(Double inch){
-        return inch *350d;
-    }
-    public void printReceipt() {
-        // Create the PrintJob object
-        attributes = new HashPrintRequestAttributeSet();
-        PrinterJob pjb = PrinterJob.getPrinterJob();
-        pjb.setPrintable(this,getPageFormat(pjb));
-        try{
-             pjb.print();
-        }catch(Exception ex) {
-
+        //this.paint(g2);
+        Font font = new Font("Monospaced",Font.BOLD, 11);
+        g2.setFont(font);
+        int y = 0;
+        if (headerSettings != null) {
+            g2.drawString(headerSettings.getCompanyName(), 100, y + 20);;
+            font = new Font("Monospaced", Font.PLAIN, 10);
+            g2.setFont(font);
+            g2.drawString(headerSettings.getAddress(), 50, y + 40);
+            g2.drawString(headerSettings.getAddressSub(), 50, y + 60);
+            if(!StringUtils.isEmpty(headerSettings.getRegistrationNo())){
+               g2.drawString("GST No.:" + headerSettings.getRegistrationNo(), 50, y + 80);
+            }
         }
-    }
-
-    public JPanel getPanel() {
-        return this;
+        /*Customer Details information*/
+        int x = 10;
+        font = new Font("Monospaced", Font.PLAIN, 10);
+        g2.setFont(font);
+        g2.drawString("Bill No.     :" + customerDetails.getBillNo(),x, y + 100);
+        g2.drawString("Date         :" + toString(customerDetails.getBillDate()),x, y + 120);
+        g2.drawString("Customer Name:" + customerDetails.getCustomerName(),x, y + 140);
+        /*Draw Colums*/
+        font = new Font("Monospaced", Font.PLAIN, 10);
+        g2.setFont(font);
+        g2.drawLine(10, y + 150, 400, y + 150);
+        g2.drawString(title[0], x, y + 170);
+        g2.drawString(title[1], x + 55, y + 170);
+        g2.drawString(title[2], x + 155, y + 170);
+        g2.drawString(title[3], x + 205, y + 170);
+        g2.drawString(title[4],x+280, y + 170);
+        g2.drawLine(10, y + 180, 400, y + 180);
+        /*items print*/
+        int cH = 0, i = 0;
+        LOGGER.info("customerDetails.getBillEntrys()" + customerDetails.getBillEntrys().size());
+        if (customerDetails.getBillEntrys() != null) {
+            total_item_count = customerDetails.getBillEntrys().size() + 2;
+            for (BillEntry billEntry : customerDetails.getBillEntrys()) {
+                cH = (y + 200) + (10 * i);
+                g2.drawString(billEntry.getProdCode(), x, cH);
+                g2.drawString(billEntry.getProdName(), x + 55, cH);
+                g2.drawString(currentyFormat.format(billEntry.getPrice()), x + 155, cH);
+                g2.drawString(billEntry.getQty().toString(), x + 205, cH);
+                g2.drawString(billEntry.getAmount().toString(), x+280, cH);
+                i++;
+                total+=billEntry.getAmount();
+            }
+        }
+        g2.drawString(total.toString(), x+280,cH+15);
+        /*Footer*/
+        font = new Font("Arial", Font.BOLD,8);                  //changed font size
+        g2.setFont(font);
+        g2.drawString("****Thank You,Please Visit Again****",95,cH+26);
+        return Printable.PAGE_EXISTS;
     }
 }

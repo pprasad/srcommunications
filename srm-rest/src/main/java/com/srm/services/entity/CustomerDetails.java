@@ -47,6 +47,12 @@ public class CustomerDetails extends  BaseEntity{
     @Column(name = "AMOUNT")
     private Double amount;
     
+    @Column(name ="DISCOUNT")
+    private Integer discount;
+    
+    @Column(name = "TOTAL_AMT")
+    private Double totalAmount;
+    
     @OneToMany(cascade =CascadeType.REMOVE,mappedBy ="customerDetails")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<BillEntry> billEntrys;
@@ -91,6 +97,22 @@ public class CustomerDetails extends  BaseEntity{
         this.amount = amount;
     }
 
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+    
     public List<BillEntry> getBillEntrys() {
         return billEntrys;
     }

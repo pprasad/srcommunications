@@ -6,6 +6,7 @@
 
 package com.srm.services.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,6 +43,9 @@ public class BillEntry extends BaseEntity{
     
     @Column(name ="QTY")
     private Integer qty;
+    
+    @Column(name="DISCOUNT")
+    private Integer discount;
     
     @Column(name ="AMOUNT")
     private Double amount;
@@ -92,6 +96,13 @@ public class BillEntry extends BaseEntity{
         return amount;
     }
 
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
     public void setAmount(Double amount) {
         this.amount = amount;
     }

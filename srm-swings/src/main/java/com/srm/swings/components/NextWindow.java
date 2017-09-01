@@ -16,6 +16,7 @@ import com.srm.services.entity.UserInfo;
 import com.srm.swings.billinfo.BillGenerateForm;
 import com.srm.swings.luncher.LoginForm;
 import com.srm.swings.product.ProductCategory;
+import com.srm.swings.reports.StockReport;
 import com.srm.swings.settings.HeaderSetting;
 import com.srm.swings.settings.NewUserForm;
 import javax.annotation.PostConstruct;
@@ -59,12 +60,15 @@ public class NextWindow extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         salesBillEntryMenu = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        headerSettingMenuitem = new javax.swing.JMenuItem();
+        stockReportMenu = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        headerSettingMenuitem1 = new javax.swing.JMenuItem();
         newuserMenuitem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SRCOMMUNICATIONS");
         setFont(new java.awt.Font("Elephant", 0, 36)); // NOI18N
+        setUndecorated(true);
 
         jDesktopPane=new MDIDesktopPane();
         jScrollPane1.setViewportView(jDesktopPane);
@@ -97,7 +101,7 @@ public class NextWindow extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelloginUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1319, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,19 +155,36 @@ public class NextWindow extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setForeground(new java.awt.Color(102, 102, 0));
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settings.png"))); // NOI18N
-        jMenu3.setText("Settings");
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/report.png"))); // NOI18N
+        jMenu3.setText("Reports");
         jMenu3.setBorderPainted(true);
         jMenu3.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
 
-        headerSettingMenuitem.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        headerSettingMenuitem.setText("Header Setting");
-        headerSettingMenuitem.addActionListener(new java.awt.event.ActionListener() {
+        stockReportMenu.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        stockReportMenu.setText("Stock");
+        stockReportMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                headerSettingMenuitemActionPerformed(evt);
+                stockReportMenuActionPerformed(evt);
             }
         });
-        jMenu3.add(headerSettingMenuitem);
+        jMenu3.add(stockReportMenu);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setForeground(new java.awt.Color(102, 102, 0));
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/settings.png"))); // NOI18N
+        jMenu4.setText("Settings");
+        jMenu4.setBorderPainted(true);
+        jMenu4.setFont(new java.awt.Font("Times New Roman", 1, 28)); // NOI18N
+
+        headerSettingMenuitem1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        headerSettingMenuitem1.setText("Header Setting");
+        headerSettingMenuitem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                headerSettingMenuitem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(headerSettingMenuitem1);
 
         newuserMenuitem.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         newuserMenuitem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user.png"))); // NOI18N
@@ -173,9 +194,9 @@ public class NextWindow extends javax.swing.JFrame {
                 newuserMenuitemActionPerformed(evt);
             }
         });
-        jMenu3.add(newuserMenuitem);
+        jMenu4.add(newuserMenuitem);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
         jMenuBar1.getAccessibleContext().setAccessibleParent(this);
@@ -185,7 +206,7 @@ public class NextWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1709, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,47 +227,55 @@ public class NextWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_productCategoryMenuActionPerformed
 
     private void salesBillEntryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesBillEntryMenuActionPerformed
+        billGenerateForm.setSize(jDesktopPane.getSize());
         billGenerateForm.show();
         jDesktopPane.add(billGenerateForm);
     }//GEN-LAST:event_salesBillEntryMenuActionPerformed
 
-    private void headerSettingMenuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_headerSettingMenuitemActionPerformed
-       headerSetting.setLocationRelativeTo(this);
-       headerSetting.show();
-    }//GEN-LAST:event_headerSettingMenuitemActionPerformed
-
-    private void newuserMenuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newuserMenuitemActionPerformed
-        newUserForm.setLocationRelativeTo(this);
-        newUserForm.show();
-    }//GEN-LAST:event_newuserMenuitemActionPerformed
+    private void stockReportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockReportMenuActionPerformed
+         stockReport.setLocationRelativeTo(this);
+         stockReport.show();
+    }//GEN-LAST:event_stockReportMenuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
         loginForm.setLocationRelativeTo(null);
         loginForm.show();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void headerSettingMenuitem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_headerSettingMenuitem1ActionPerformed
+        headerSetting.setLocationRelativeTo(this);
+        headerSetting.show();
+    }//GEN-LAST:event_headerSettingMenuitem1ActionPerformed
+
+    private void newuserMenuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newuserMenuitemActionPerformed
+       newUserForm.setLocationRelativeTo(this);
+       newUserForm.show();
+    }//GEN-LAST:event_newuserMenuitemActionPerformed
     public void setLoginId(){
          labelloginUser.setText(userSession.getUserName());
          UserInfo userInfo=userSession.getUserInfo();
-         if(userInfo.isStockEntryAccess()){
-             productCategoryMenu.setEnabled(true);
-         }else{
-             productCategoryMenu.setEnabled(false);
-         }
-         if(userInfo.isBillEntryAccess()){
-             salesBillEntryMenu.setEnabled(true);
-         }else{
-             salesBillEntryMenu.setEnabled(false);
-         }
-         if(userInfo.isNewuserAccess()){
-             newuserMenuitem.setEnabled(true);
-         }else{
-             newuserMenuitem.setEnabled(false);
-         }
-         if(userInfo.isSystemAccess()){
-            headerSettingMenuitem.setEnabled(true);
-         }else{
-            headerSettingMenuitem.setEnabled(false);
+         if(userInfo!=null){
+            if(userInfo.isStockEntryAccess()){
+                productCategoryMenu.setEnabled(true);
+            }else{
+                productCategoryMenu.setEnabled(false);
+            }
+            if(userInfo.isBillEntryAccess()){
+                salesBillEntryMenu.setEnabled(true);
+            }else{
+                salesBillEntryMenu.setEnabled(false);
+            }
+            if(userInfo.isNewuserAccess()){
+                newuserMenuitem.setEnabled(true);
+            }else{
+                newuserMenuitem.setEnabled(false);
+            }
+            if(userInfo.isSystemAccess()){
+               stockReportMenu.setEnabled(true);
+            }else{
+               stockReportMenu.setEnabled(false);
+            }
          }
     }
     @Autowired ProductCategory productCategory;
@@ -255,14 +284,16 @@ public class NextWindow extends javax.swing.JFrame {
     @Autowired SessionDetails userSession;
     @Autowired NewUserForm newUserForm;
     @Autowired LoginForm loginForm;
+    @Autowired StockReport stockReport;
     private MDIDesktopPane jDesktopPane;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem headerSettingMenuitem;
+    private javax.swing.JMenuItem headerSettingMenuitem1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -270,6 +301,7 @@ public class NextWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem newuserMenuitem;
     private javax.swing.JMenuItem productCategoryMenu;
     private javax.swing.JMenuItem salesBillEntryMenu;
+    private javax.swing.JMenuItem stockReportMenu;
     // End of variables declaration//GEN-END:variables
 
 }

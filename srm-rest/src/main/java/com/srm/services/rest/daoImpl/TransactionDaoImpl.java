@@ -23,6 +23,7 @@ import com.srm.services.entity.CustomerDetails;
 import com.srm.services.entity.HeaderSettings;
 import com.srm.services.entity.ProductEntry;
 import com.srm.services.entity.ProductStock;
+import com.srm.services.entity.StockReport;
 import com.srm.services.entity.UserInfo;
 import com.srm.services.entity.Users;
 import com.srm.services.rest.dao.TransactionDao;
@@ -744,6 +745,25 @@ public class TransactionDaoImpl implements TransactionDao {
             LOGGER.error("Exception{}"+ex,ex);
             return null;
         }
+    }
+
+    public List<StockReport> findAllStocks() {
+        Session session=null;
+        List<StockReport> stockReports=null;
+        try{
+            session=sessionFactory.openSession();
+            LOGGER.info("QUERY{}"+ServiceConstant.STOCK_REPORT_SQL);
+            SQLQuery sqlQuery=session.createSQLQuery(ServiceConstant.STOCK_REPORT_SQL);
+            sqlQuery.addEntity(StockReport.class);
+            stockReports=(List<StockReport>)sqlQuery.list();
+        }catch(Exception ex){
+             LOGGER.error("Exception{}"+ex,ex);
+        }finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+        return stockReports;
     }
 
 }

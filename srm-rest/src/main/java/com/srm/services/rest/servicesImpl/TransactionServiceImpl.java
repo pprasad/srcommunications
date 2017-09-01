@@ -15,12 +15,11 @@ import com.srm.services.entity.CustomerDetails;
 import com.srm.services.entity.HeaderSettings;
 import com.srm.services.entity.ProductEntry;
 import com.srm.services.entity.ProductStock;
+import com.srm.services.entity.StockReport;
 import com.srm.services.entity.UserInfo;
 import com.srm.services.entity.Users;
 import com.srm.services.rest.dao.TransactionDao;
-import com.srm.services.rest.daoImpl.TransactionDaoImpl;
 import com.srm.services.rest.services.TransactionService;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -238,6 +237,10 @@ public class TransactionServiceImpl implements TransactionService {
 
     public List<UserInfo> findAllUserDetails() {
        return transactionDao.findAllUserDetails();
+    }
+
+    public List<StockReport> findAllStocks() {
+        return transactionDao.findAllStocks();
     }
 
 }

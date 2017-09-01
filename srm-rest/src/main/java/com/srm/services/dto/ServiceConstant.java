@@ -25,4 +25,12 @@ public class ServiceConstant {
     public static final String CATEGORY_PROD_CODE_SQL="SELECT CP.PRODUCT_CODE,CP.PRODUCT_NAME,PS.PROD_QUANTITY,PS.PROD_PRICE"
             + " FROM CATEGORY_PRODUCT CP JOIN "
             + "PRODUCT_STOCK PS ON CP.PRODUCT_CODE=PS.PROD_CODE WHERE PS.PROD_CODE=:prodCode";
+    public static final String STOCK_REPORT_SQL="SELECT @rownum\\:=@rownum+1 AS ROW_NO,PRD_ENTRY.PROD_CODE,(SELECT PRODUCT_NAME FROM srcomms.category_product WHERE PRODUCT_CODE=PRD_ENTRY.PROD_CODE) AS PROD_NAME,"
+            + "PRD_ENTRY.PROD_QUANTITY AS SALES_QTY," +
+            " (SELECT MAX(PROD_QUANTITY) FROM srcomms.product_entry WHERE PROD_CODE=PRD_ENTRY.PROD_CODE) AS TOTAL_QTY " +
+            " FROM(SELECT PS.* FROM srcomms.product_stock PS JOIN srcomms.product_entry PE on PS.PROD_CODE=PE.PROD_CODE) PRD_ENTRY,(SELECT @rownum\\:=0) r";
+    public static Double calcDiscount(Double amount,Integer discount){
+        return (amount-((amount*discount)/100));
+    }
+
 }

@@ -10,6 +10,7 @@ import com.srm.services.entity.CustomerDetails;
 import com.srm.services.entity.HeaderSettings;
 import com.srm.services.entity.ProductEntry;
 import com.srm.services.entity.ProductStock;
+import com.srm.services.entity.StockReport;
 import com.srm.services.entity.UserInfo;
 import com.srm.services.entity.Users;
 
@@ -92,4 +93,6 @@ public interface TransactionDao {
     public UserInfo findUserDetailsById(Long id);
 
     public List<UserInfo> findAllUserDetails();
+    
+    public List<StockReport> findAllStocks(); 
 }

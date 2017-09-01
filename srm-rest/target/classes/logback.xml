@@ -29,7 +29,7 @@
 	<!--START:Q1FY17:PRASAD-->
 	<!-- AsyncAppender -->
 	<appender name="asyncAppender" class="ch.qos.logback.classic.AsyncAppender">
-		<discardingThreshold>0</discardingThreshold>
+	      <discardingThreshold>0</discardingThreshold>
 	      <queueSize>10000</queueSize>
 	      <appender-ref ref="fileAppender" />
 	</appender>
@@ -52,6 +52,6 @@
 
 	<root level="ALL">
 		<appender-ref ref="console" />
-		<!-- <appender-ref ref="fileAppender" /> -->
+		<appender-ref ref="fileAppender" />
 	</root>
 </configuration>

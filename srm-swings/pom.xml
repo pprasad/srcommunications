@@ -49,6 +49,12 @@
             <version>4.4</version>
             <scope>test</scope>
         </dependency>
+        <!--Jasper-->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -68,6 +74,16 @@
                                     <mainClass>com.srm.swings.luncher.SpringLauncher</mainClass>
                                 </transformer>
                             </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>

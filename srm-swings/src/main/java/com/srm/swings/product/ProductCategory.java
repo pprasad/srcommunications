@@ -829,7 +829,7 @@ public class ProductCategory extends javax.swing.JInternalFrame {
             categoryProduct = transactionService.saveCategoryProd(categoryProduct);
             if(categoryProduct.getProductID()!=null) {
                 model.addRow(new Object[]{categoryProduct.getProductID(), categoryProduct.getProductCode(),
-                    categoryProduct.getProductName(), categoryProduct.getCategory().getCateName()});
+                    categoryProduct.getProductName(), categoryProduct.getCategory()});
                 productCodeJBox.addItem(categoryProduct);
                 dialogBox(ServiceConstant.ACTION_SAVE);
             }

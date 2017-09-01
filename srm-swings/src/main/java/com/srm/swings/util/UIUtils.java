@@ -9,9 +9,15 @@ package com.srm.swings.util;
 import com.srm.services.dto.ServiceConstant;
 import com.srm.services.entity.CustomerDetails;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -57,4 +63,18 @@ public class UIUtils {
        JTableHeader header =jTable.getTableHeader();
        header.setFont(font);
     }
+    public static Integer getWidth(){
+        return 702;
+    }
+     public static Integer getHeight(){
+        return 436;
+    }
+    public static Dimension getScreensize(){
+         Toolkit toolkit=Toolkit.getDefaultToolkit();
+         Dimension dimension=toolkit.getScreenSize();
+         dimension.setSize(2560,1440);
+         return dimension;
+    } 
+  
+     
 }
